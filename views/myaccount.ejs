@@ -1,0 +1,60 @@
+<!--  Created by TAODELL on 2014/10/20. -->
+   
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" type="img/x-icon"/>
+
+    <script src="/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/angular.min.js"></script>
+
+    <script type="text/javascript" src="/javascripts/js_myaccount.js"></script>
+    <title>帐户</title>
+
+</head>
+<body ng-app="myApp">
+<div class="container" ng-controller="MyController">
+    <div class="row">
+        <div class="col-xs-12"><h1><%= doc.name%>帐户信息 {{clock}}</h1></div>
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-xs-4">您的称呼</div>
+            <div class="col-xs-8"><input type = "text" ng-change="new_addr_change()" ng-model="item.contact" ></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">您的联系手机号码</div>
+            <div class="col-xs-8"><input type = "text" ng-change="new_addr_change()" ng-model="item.mobile"></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">常用地址</div>
+            <div class="col-xs-6"><input type = "text" ng-change="new_addr_change()" ng-model="item.addr" ></div>
+            <div class="col-xs-2"><a ng-show="new_addr_show" ng-click="new_addr()">添加新地址</a></div>
+        </div>
+        <div ng-repeat="addr in item.addrs">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-1">{{$index + 1}}、</div>
+            <div class="col-xs-4">{{addr.contact}}, {{addr.mobile}}, {{addr.text}}</div>
+            <div class="col-xs-2"><a ng-click="delete_addr($index)">删除地址</a></div>
+            <div class="col-xs-2"><a ng-click="default_addr($index)">设为缺省地址</a></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6"><input type="submit" value="修改"></div>
+            <div class="col-xs-6"><a ng-click="submit_addr()">修改</a></div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-xs-3"><a href="/">首页</a> </div>
+        <div class="col-xs-3"><a href="/myaccount">我的帐户</a> </div>
+        <div class="col-xs-3"><a href="/order">我的衣单</a> </div>
+        <div class="col-xs-3"><a href="/logout">退出登陆</a> </div>
+    </div>
+</div>
+
+</body>
+</html>

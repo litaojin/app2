@@ -1,0 +1,17 @@
+extend layout
+block content
+    div.container
+        div.row
+            div.col-xs-12
+                h1 敬请期待超级洗衣上线
+        if req.session.loggedIn
+            div.row
+                div.col-xs-10 欢迎 req.session.name 亲
+                div.col-xs-2
+                    a(href='/logout') 退出登陆
+        else
+            div.row
+                div.col-xs-6
+                    a(href='/login') 老用户登陆
+                div.col-xs-6
+                    a(href='/signup') 注册新用户

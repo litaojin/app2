@@ -1,0 +1,51 @@
+<!--  Created by TAODELL on 2014/10/11. -->
+   
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" type="img/x-icon"/>
+
+    <title>新订单</title>
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12"><h1>新订单</h1></div>
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-xs-4">联系人姓名</div>
+            <div class="col-xs-8"><input type = "text" id = "contact" name="contact" value="<%= doc.contact%>" ></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">联系人手机号码</div>
+            <div class="col-xs-8"><input type = "text" id = "mobile" name="mobile" value="<%= doc.mobile%>"></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">取件地址</div>
+            <div class="col-xs-8"><input type = "text" id = "pick_addr" name="pick_addr" value="<%= doc.pick_addr%>"></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">送件地址</div>
+            <div class="col-xs-8"><input type = "text" id = "drop_addr" name="drop_addr" value="<%= doc.drop_addr%>"></div>
+        <div class="row">
+            <div class="col-xs-12"><input type="submit" value="创建"></div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-xs-3"><a href="/">首页</a> </div>
+        <div class="col-xs-3"><a href="/myaccount">我的帐户</a> </div>
+        <div class="col-xs-3"><a href="/order">我的衣单</a> </div>
+        <div class="col-xs-3"><a href="/logout">退出登陆</a> </div>
+    </div>
+</div>
+
+<script src="/javascripts/bootstrap.min.js"></script>
+
+</body>
+</html>
