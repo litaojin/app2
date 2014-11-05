@@ -9,29 +9,25 @@ var user = {
     mobile: ''
 };
 
-Controllers.controller('HomeController', ['$scope', '$http',
-    function($scope, $http){
+Controllers.controller('HomeController', ['$scope', '$http', '$location',
+    function($scope, $http, $location){
         $scope.login = user.isLogin;
+    }]);
 
+Controllers.controller('LoginController', ['$scope', '$http', '$location',
+    function($scope, $http, $location){
         $scope.submit_login = function($scope){
-            if($scope.login_name === 'litao'){
-                user.isLogin = true;
-                user.login = $scope.login_name;
-            }
+            console.log('Login');
+            user.isLogin = true;
+            $location.path('/');
         }
-
     }]);
 
-
-
-Controllers.controller('LoginController', ['$scope', '$http',
-    function($scope, $http){
-
-    }]);
 Controllers.controller('OrderController', ['$scope', '$http',
     function($scope, $http){
 
     }]);
+
 Controllers.controller('MyaccountController', ['$scope', '$http',
     function($scope, $http){
 
