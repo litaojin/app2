@@ -22,6 +22,10 @@ var api_users = require('./routes/api_users');
 var api_orders = require('./routes/api_orders');
 var api_dbcmd = require('./routes/api_dbcmd');
 
+var api_v1_users = require('./routes/api_v1_users');
+var api_v1_orders = require('./routes/api_v1_orders');
+var api_v1_dbcmd = require('./routes/api_v1_dbcmds');
+
 var app = express();
 
 app.set('title', '超级洗衣');
@@ -65,6 +69,11 @@ app.all('/api/*?', function(req, res, next){
 app.use('/api/dbcmd', api_dbcmd);
 app.use('/api/users', api_users);
 app.use('/api/order', api_orders);
+
+
+app.use('/api/v1/dbcmd', api_v1_dbcmd);
+app.use('/api/v1/users', api_v1_users);
+app.use('/api/v1/orders', api_v1_orders);
 
 
 app.get('/test', function(req, res){

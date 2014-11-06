@@ -2,9 +2,9 @@
  * Created by TAODELL on 2014/11/5.
  */
 
-var app = angular.module('myApp', [
+var app = angular.module('eWash', [
     'ngRoute',
-    'Controllers']);
+    'eWash.controllers']);
 
 app.config(['$routeProvider', function($routeProvider){
     $routeProvider
@@ -12,9 +12,13 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl: 'partials/home.html',
             controller:'HomeController'
         })
-        .when('/login1',{
+        .when('/login',{
             templateUrl: 'partials/login.html',
             controller:'LoginController'
+        })
+        .when('/signup',{
+            templateUrl: 'partials/signup.html',
+            controller:'SignupController'
         })
         .when('/order',{
             templateUrl: 'partials/order.html',
