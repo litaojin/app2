@@ -11,6 +11,10 @@ services.factory('UserService', function($resource) {
         return $resource('/api/v1/users/:login', {login: '@login'});
     });
 
+services.factory('OrderService', function($resource) {
+    return $resource('/api/v1/orders/:id', {id: '@id'});
+});
+
 services.factory('LoginService',function($resource) {
         var user = {
             isLogin : false,
