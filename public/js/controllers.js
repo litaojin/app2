@@ -11,11 +11,19 @@ Controllers.controller('HomeController', function($scope, LoginService){
 Controllers.controller('LoginController', function($scope, $http, $location, UserService){
     $scope.login_tip = '请输入您的用户名和密码';
         $scope.submit_login = function(){
-            UserService.get({login: $scope)
-            if($scope.login_name === 'litao' ) {
-                user.isLogin = true;
-                $location.path('/');
-            }
+            UserService.get({login: $scope.login_name}
+                , function(resp){
+                    if(resp.login){
+                        if(resp.password === $scope.login_pswd){
+                            user.isLogin = true;
+                            $location.path('/');
+                        }else{
+                            $scope.login_tip = '密码错误';
+                        }
+                    }else{
+                        $scope.login_tip = '用户名错误';
+                    }
+                } );
         }
     });
 
