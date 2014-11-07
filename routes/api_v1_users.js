@@ -9,6 +9,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('mongous').Mongous;
+var moment = require('moment');
 
 /* GET users listing. */
 router.get('/:id', function(req, res) {
@@ -19,14 +20,15 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/:id', function(req, res) {
-    console.log('APIv1/UPDATE user [' + req.params.id + ']');
+
     db('eWash.users').find({login: req.params.id}, {}, {}, function(reply){
 
         if( reply.documents.length == 0 ){
             console.log('APIv1/CREATE user [' + req.params.id + ']');
             db('eWash.users').save( {
                 login: req.body.login,
-                password: req.body.password});
+                password: req.body.password,
+                signupTimeStamp:moment().toDate()});
             res.json(true);
         }else{
             console.log('APIv1/UPDATE user [' + req.params.id + ']');
