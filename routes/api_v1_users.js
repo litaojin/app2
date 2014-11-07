@@ -20,14 +20,26 @@ router.get('/:id', function(req, res) {
 
 router.post('/:id', function(req, res) {
     console.log('APIv1/UPDATE user [' + req.params.id + ']');
-    db('eWash.users').update({name: req.params.id},
-        {$set:{
-            mobile  :req.body.mobile,
-            name :req.body.name,
-            addr    :req.body.addr,
-            addrs   :req.body.addrs}},
-        {upsert: false, multi: false});
-    res.json(true);
+    db('eWash.users').find({login: req.params.id}, {}, {}, function(reply){
+
+        if( reply.documents.length == 0 ){
+            console.log('APIv1/CREATE user [' + req.params.id + ']');
+            db('eWash.users').save( {
+                login: req.body.login,
+                password: req.body.password});
+            res.json(true);
+        }else{
+            console.log('APIv1/UPDATE user [' + req.params.id + ']');
+            db('eWash.users').update({name: req.params.id},
+                {$set:{
+                    mobile  :req.body.mobile,
+                    name :req.body.name,
+                    addr    :req.body.addr,
+                    addrs   :req.body.addrs}},
+                {upsert: false, multi: false});
+            res.json(true);
+        }
+    });
 });
 
 router.post('/', function(req, res) {
