@@ -8,7 +8,7 @@ var services = angular.module('eWash.services',
     ['ngResource']);
 
 services.factory('UserService', function($resource) {
-        return $resource('/api/v1/users/:login', {login: '@login'});
+        return $resource('/api/v1/users/:id', {id: '@id'});
     });
 
 services.factory('OrderService', function($resource) {

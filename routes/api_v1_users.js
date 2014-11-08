@@ -32,10 +32,10 @@ router.post('/:id', function(req, res) {
             res.json(true);
         }else{
             console.log('APIv1/UPDATE user [' + req.params.id + ']');
-            db('eWash.users').update({name: req.params.id},
+            db('eWash.users').update({login: req.params.id},
                 {$set:{
-                    mobile  :req.body.mobile,
                     name :req.body.name,
+                    mobile  :req.body.mobile,
                     addr    :req.body.addr,
                     addrs   :req.body.addrs}},
                 {upsert: false, multi: false});
@@ -45,11 +45,12 @@ router.post('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    console.log('APIv1/CREATE user [' + req.params.id + ']');
+    console.log('2. APIv1/CREATE user [' + req.body.login + ']');
 
     db('eWash.users').save( {
         login: req.body.login,
-        password: req.body.password});
+        password: req.body.password,
+        signupTimeStamp:moment().toDate()});
     res.json(true);
 });
 

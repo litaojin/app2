@@ -6,12 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var cookieSession = require('cookie-session');
-var expressJwt = require('express-jwt');
+var expressjwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
-
-var config = require('./config.js');
-var Lockit =  require('lockit');
-var lockit = new Lockit(config);
 
 var index = require('./routes/index');
 var order = require('./routes/order');
@@ -22,6 +18,8 @@ var api_users = require('./routes/api_users');
 var api_orders = require('./routes/api_orders');
 var api_dbcmd = require('./routes/api_dbcmd');
 
+var authenticate =  require('./routes/authenticate');
+var signup =  require('./routes/signup');
 var api_v1_users = require('./routes/api_v1_users');
 var api_v1_orders = require('./routes/api_v1_orders');
 var api_v1_dbcmd = require('./routes/api_v1_dbcmds');
@@ -33,7 +31,10 @@ app.set('title', '超级洗衣');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+var secret = 'this is Taos secret secret';
 // uncomment after placing your favicon in /public
+app.use('/api/v1', expressjwt({secret: secret}));
+
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -41,22 +42,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.use(cookieSession({secret: 'TAOTAO'}));
-app.use(lockit.router);
-
 app.use('/', index);
 app.use('/neworder', neworder);
 app.use('/order', order);
 app.use('/myaccount', myaccount);
 
-lockit.on('signup', function(user, res){
-    console.log('a new user signed up');
-});
-
-lockit.on('login', function(user, res){
-    console.log('user logined');
-});
+app.use('/authenticate', authenticate);
+app.use('/signup', signup);
 
 
 // RESTFUL API
@@ -79,6 +71,13 @@ app.use('/api/v1/orders', api_v1_orders);
 app.get('/test', function(req, res){
     res.render('test', {});
 })
+
+app.use(function(err, req, res, next){
+   if(err.constructor.name === 'UnauthorizedError'){
+       res.status(401).send('Unauthorized');
+   }
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

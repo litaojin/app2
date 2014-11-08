@@ -1,13 +1,28 @@
 <!--  Created by TAODELL on 2014/11/5. -->
 
-<div class="row" ng-show="login">
-    <div class="col-xs-3"><a href="/neworder">我要洗衣</a></div>
-    <div class="col-xs-3"><a href="/order">我的衣单</a></div>
-    <div class="col-xs-3"><a href="/myaccount">我的帐户</a></div>
-    <div class="col-xs-3"><a href="/logout">退出登陆</a></div>
+<div ng-show="isAuthenticated">
+    <div class="row">
+        <div class="col-xs-3"><a href="/#/placeorder">我要洗衣</a></div>
+        <div class="col-xs-3"><a href="/#/myaccount">我的帐户</a></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3"><a ng-click='logout()' href="">退出登陆</a></div>
+        <div class="col-xs-3"><a href="/order">我的衣单</a></div>
+    </div>
 </div>
-<div class="row" ng-hide="login">
-    <div class="col-xs-6"><a href="/#/login">老用户登陆</a></div>
-    <div class="col-xs-6"><a href="/#/signup">我是新用户</a></div>
+<div class="row" ng-hide="isAuthenticated">
+    <div class="row">
+        <div class="col-xs-2">用户名/手机号</div>
+        <div class="col-xs-4"><input type = "text" ng-model="login_name" placeholder="用户名"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">密码</div>
+        <div class="col-xs-4"><input type = "password" ng-model="login_pswd" placeholder="密码"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2" ng-bind="login_tip"></div>
+        <div class="col-xs-1"><a ng-click="submit_login()" href="">登陆</a></div>
+        <div class="col-xs-1"><a href="/#/signup">我是新用户</a></div>
+    </div>
 </div>
 

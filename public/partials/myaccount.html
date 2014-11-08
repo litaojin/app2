@@ -1,12 +1,31 @@
 <!--  Created by TAODELL on 2014/11/5. -->
 
-<!DOCTYPE html>
-<html>
-<head lang="zh-CN">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div class="row">
+    <div class="col-xs-4">您的称呼</div>
+    <div class="col-xs-8"><input type = "text" ng-change="new_addr_change()" ng-model="user.name" ></div>
+</div>
+<div class="row">
+    <div class="col-xs-4">您的联系手机号码</div>
+    <div class="col-xs-8"><input type = "text" ng-change="new_addr_change()" ng-model="user.mobile"></div>
+</div>
+<div class="row">
+    <div class="col-xs-4">常用地址</div>
+    <div class="col-xs-6"><input type = "text" ng-change="new_addr_change()" ng-model="user.addr" ></div>
+    <div class="col-xs-2"><a ng-show="new_addr_show" ng-click="new_addr()" href="">添加新地址</a></div>
+</div>
+<div ng-repeat="addr in user.addrs">
+    <div class="col-xs-3"></div>
+    <div class="col-xs-1">{{$index + 1}}、</div>
+    <div class="col-xs-4">{{addr.name}}, {{addr.mobile}}, {{addr.addr}}</div>
+    <div class="col-xs-2"><a ng-click="delete_addr($index)" href="">删除地址</a></div>
+    <div class="col-xs-2"><a ng-click="default_addr($index)" href="">设为缺省地址</a></div>
+</div>
+<div class="row">
+    <div class="col-xs-6"><a ng-click="submit_addr()" href="">修改</a></div>
+</div>
 
-</body>
-</html>
+<div class="row">
+    <div class="col-xs-3"><a href="/#/">首页</a> </div>
+    <div class="col-xs-3"><a href="/#/myaccount">我的帐户</a> </div>
+    <div class="col-xs-3"><a href="/#/order">我的衣单</a> </div>
+</div>

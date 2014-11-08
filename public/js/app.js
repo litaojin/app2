@@ -12,10 +12,6 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl: 'partials/home.html',
             controller:'HomeController'
         })
-        .when('/login',{
-            templateUrl: 'partials/login.html',
-            controller:'LoginController'
-        })
         .when('/signup',{
             templateUrl: 'partials/signup.html',
             controller:'SignupController'
@@ -24,11 +20,36 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl: 'partials/order.html',
             controller:'OrderController'
         })
+        .when('/placeorder',{
+            templateUrl: 'partials/placeorder.html',
+            controller:'PlaceOrderController'
+        })
         .when('/myaccount',{
             templateUrl: 'partials/myaccount.html',
             controller:'MyaccountController'
         });
 
 }]);
+app.factory('authInterceptor', function ($rootScope, $q, $window, $location) {
+    return {
+        request: function (config) {
+            config.headers = config.headers || {};
+            if ($window.sessionStorage.token) {
+                config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+            }
+            return config;
+        },
+        responseError: function (rejection) {
+            if (rejection.status === 401) {
+                // handle the case where the user is not authenticated
+                $location('/');
+            }
+            return $q.reject(rejection);
+        }
+    };
+});
 
-app.con
+app.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
+});
+

@@ -7,19 +7,19 @@ var router = express.Router();
 var db = require('mongous').Mongous;
 
 router.get('/mobile/:id([0-9]+)', function(req, res) {
-    db('eWash.orders').find({mobile: req.params.id}, {}, {sort: {order_id: 1}}, function (reply) {
+    db('eWash.orders').find({mobile: req.params.id}, {}, {sort: {id: 1}}, function (reply) {
         console.log('/' + req.params.id);
         res.json(reply.documents);
     });
 });
 router.get('/id/:id([0-9]+)', function(req, res) {
-    db('eWash.orders').find({order_id: req.params.id}, {}, function (reply) {
+    db('eWash.orders').find({id: req.params.id}, {}, function (reply) {
         console.log('GET /id/' + req.params.id);
         res.json(reply.documents[0]);
     });
 });
 router.post('/id/:id([0-9]+)', function(req, res) {
-    db('eWash.orders').update({order_id: req.params.id},
+    db('eWash.orders').update({id: req.params.id},
         {$set:{
             mobile:req.body.mobile,
             contact:req.body.contact,
@@ -32,13 +32,13 @@ router.post('/id/:id([0-9]+)', function(req, res) {
 });
 
 router.get('/state/:state(s[1-9])', function(req, res) {
-    db('eWash.orders').find({state: req.params.state}, {}, {sort: {order_id: 1}}, function (reply) {
+    db('eWash.orders').find({state: req.params.state}, {}, {sort: {id: 1}}, function (reply) {
         console.log('/' + req.params.id);
         res.json( reply.documents);
     });
 });
 router.get('/', function(req, res){
-   db('eWash.orders').find({name: req.session.name}, {}, {sort: {order_id: 1}}, function(reply){
+   db('eWash.orders').find({name: req.session.name}, {}, {sort: {id: 1}}, function(reply){
         res.json( reply.documents);
     });
 });
@@ -47,10 +47,10 @@ router.post('/', function(req, res) {
     orderid = now.getTime().toString();
 
     db('eWash.orders').save( {
-        order_id: orderid,
+        id: orderid,
         login: req.body.login,
-        mobile:req.body.mobile,
         name:req.body.name,
+        mobile:req.body.mobile,
         state:'s1',
         pick_addr:req.body.pick_addr,
         drop_addr:req.body.drop_addr});
