@@ -10,7 +10,7 @@ var moment = require('moment');
 
 router.post('/', function (req, res) {
     // TODO validate req.body.username and req.body.password
-    //if is invalid, return 401
+
     db('eWash.users').find({login: req.body.login}, {}, {}, function(reply){
 
         if( reply.documents.length == 0 ){
@@ -22,7 +22,7 @@ router.post('/', function (req, res) {
             res.json(true);
         }else{
             console.log('SIGNUP/CREATE Failed user [' +  req.body.login + '] existed');
-            res.json(false);
+            res.status(400).send('User existed');
         }
     });
 });
