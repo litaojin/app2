@@ -54,7 +54,7 @@ router.post('/', function(req, res) {
         state:'s1',
         pick_addr:req.body.pick_addr,
         drop_addr:req.body.drop_addr});
-    res.json(true);
+    res.json({id: orderid});
 });
 
 module.exports = router;

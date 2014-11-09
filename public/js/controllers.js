@@ -64,21 +64,43 @@ Controllers.controller('SignupController', function($scope, $http, $location, Us
     };
 });
 
-Controllers.controller('OrderController', function($scope, $http){
+Controllers.controller('OrderController', function($scope, $window, OrderService){
+
+
+
 
 });
 
-Controllers.controller('PlaceOrderController', function($scope, $window, UserService){
-    UserService.get({id: $window.sessionStorage.login}
-        , function(resp){
+Controllers.controller('PlaceOrderController', function($scope, $window, UserService, OrderService){
+    var user = UserService.get({id: $window.sessionStorage.login}
+        , function(){
             $scope.order = {
-                name: resp.name || '',
-                mobile: resp.mobile || '',
-                pick_addr: resp.addr || '',
-                drop_addr: resp.addr
+                name: user.name || '',
+                mobile: user.mobile || '',
+                pick_addr: user.addr || '',
+                drop_addr: user.addr
             };
         }, function(resp) {
         });
+
+    $scope.submit_order = function(){
+        var postData = {
+            login: $window.sessionStorage.login,
+            name:$scope.order.name,
+            mobile:$scope.order.mobile,
+            pick_addr:$scope.order.pick_addr,
+            drop_addr:$scope.order.drop_addr
+        };
+        OrderService.Save({},
+            postData,
+            function(resp){
+
+            },
+            function(resp){
+
+            }
+        );
+    };
 
 });
 
@@ -124,6 +146,7 @@ Controllers.controller('MyaccountController', function($scope, $http, $window, U
             addrs: $scope.user.addrs
         };
         var config = {params: {}};
+
 
         $http
             .post('/api/v1/users/' + $window.sessionStorage.login, postData, config)
