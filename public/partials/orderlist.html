@@ -1,0 +1,26 @@
+<!--  Created by TAODELL on 2014/11/9. -->
+
+<div class="row">
+    <h2>亲，您的订单列表</h2>
+</div>
+<div class="row">
+    <table class="table" style="width:100%" border="1">
+        <tr><th>订单号</th><th>联系人姓名</th><th>联系人电话</th><th>取件地址</th><th>送件地址</th><th>状态</th></tr>
+
+        <tr ng-repeat="order in orders">
+            <td><a ng-href="/#/order/id/{{order.id}}" ng-bind="order.id"></a></td>
+            <td ng-bind="order.name"></td>
+            <td ng-bind="order.mobile"></td>
+            <td ng-bind="order.pick_addr"></td>
+            <td ng-bind="order.drop_addr"></td>
+            <td ng-bind="order.state"></td>
+        </tr>
+
+    </table>
+</div>
+<div class="row">
+    <div class="col-xs-3"><a href="/">首页</a> </div>
+    <div class="col-xs-3"><a href="/myaccount">我的帐户</a> </div>
+    <div class="col-xs-3"><a href="/order">我的衣单</a> </div>
+    <div class="col-xs-3"><a href="/logout">退出登陆</a> </div>
+</div>

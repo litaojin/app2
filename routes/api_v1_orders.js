@@ -8,13 +8,16 @@ var db = require('mongous').Mongous;
 
 router.get('/mobile/:id([0-9]+)', function(req, res) {
     db('eWash.orders').find({mobile: req.params.id}, {}, {sort: {id: 1}}, function (reply) {
-        console.log('/' + req.params.id);
+        res.json(reply.documents);
+    });
+});
+router.get('/login/:id', function(req, res) {
+    db('eWash.orders').find({login: req.params.id}, {}, {sort: {id: 1}}, function (reply) {
         res.json(reply.documents);
     });
 });
 router.get('/id/:id([0-9]+)', function(req, res) {
     db('eWash.orders').find({id: req.params.id}, {}, function (reply) {
-        console.log('GET /id/' + req.params.id);
         res.json(reply.documents[0]);
     });
 });

@@ -9,15 +9,6 @@ var cookieSession = require('cookie-session');
 var expressjwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
 
-var index = require('./routes/index');
-var order = require('./routes/order');
-var neworder = require('./routes/neworder');
-var myaccount =  require('./routes/myaccount');
-
-var api_users = require('./routes/api_users');
-var api_orders = require('./routes/api_orders');
-var api_dbcmd = require('./routes/api_dbcmd');
-
 var authenticate =  require('./routes/authenticate');
 var signup =  require('./routes/signup');
 var api_v1_users = require('./routes/api_v1_users');
@@ -42,11 +33,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/neworder', neworder);
-app.use('/order', order);
-app.use('/myaccount', myaccount);
-
 app.use('/authenticate', authenticate);
 app.use('/signup', signup);
 
@@ -58,15 +44,9 @@ app.all('/api/*?', function(req, res, next){
     next();
 });
 
-app.use('/api/dbcmd', api_dbcmd);
-app.use('/api/users', api_users);
-app.use('/api/order', api_orders);
-
-
 app.use('/api/v1/dbcmd', api_v1_dbcmd);
 app.use('/api/v1/users', api_v1_users);
 app.use('/api/v1/orders', api_v1_orders);
-
 
 app.get('/test', function(req, res){
     res.render('test', {});

@@ -64,14 +64,27 @@ Controllers.controller('SignupController', function($scope, $http, $location, Us
     };
 });
 
-Controllers.controller('OrderController', function($scope, $window, OrderService){
+Controllers.controller('OrderController', function($scope, $routeParams, $window, OrderService){
+    var order = OrderService.get({id: $routeParams.id},
+        function(){
+            $scope.order = order;
+        },
+        function(){
 
-
-
+        });
 
 });
+Controllers.controller('OrderListController', function($scope, $http, $window){
+    $http
+        .get('/api/v1/orders/login/' + $window.sessionStorage.login)
+        .success(function(data, status, headers, config){
+            $scope.orders = data;
+        })
+        .error(function(data, status, headers, config){
 
-Controllers.controller('PlaceOrderController', function($scope, $window, UserService, OrderService){
+        });
+});
+Controllers.controller('PlaceOrderController', function($scope, $window, $http, $location, UserService){
     var user = UserService.get({id: $window.sessionStorage.login}
         , function(){
             $scope.order = {
@@ -91,17 +104,16 @@ Controllers.controller('PlaceOrderController', function($scope, $window, UserSer
             pick_addr:$scope.order.pick_addr,
             drop_addr:$scope.order.drop_addr
         };
-        OrderService.Save({},
-            postData,
-            function(resp){
 
-            },
-            function(resp){
-
-            }
-        );
+        $http
+            .post('/api/v1/orders', postData)
+            .success(function(data, status, headers, config){
+                console.log('Place order [' + data.id + '] Suceeded');
+                $location.path('/orderlist');
+            })
+            .error(function(data, status, headers, config){
+            });
     };
-
 });
 
 Controllers.controller('MyaccountController', function($scope, $http, $window, UserService){

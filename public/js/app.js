@@ -16,9 +16,13 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl: 'partials/signup.html',
             controller:'SignupController'
         })
-        .when('/order',{
+        .when('/order/id/:id',{
             templateUrl: 'partials/order.html',
             controller:'OrderController'
+        })
+        .when('/orderlist',{
+            templateUrl: 'partials/orderlist.html',
+            controller:'OrderListController'
         })
         .when('/placeorder',{
             templateUrl: 'partials/placeorder.html',
@@ -42,7 +46,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $location) {
         responseError: function (rejection) {
             if (rejection.status === 401) {
                 // handle the case where the user is not authenticated
-                $location('/');
+                $location.path('/');
             }
             return $q.reject(rejection);
         }
